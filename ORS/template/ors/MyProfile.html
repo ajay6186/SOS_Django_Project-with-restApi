@@ -1,0 +1,89 @@
+<body style="background-color: whitesmoke;background-image:url('../../static/images/fill-form.jpg'); background-repeat:no-repeat;width: 100%; background-size: cover ">
+
+
+{% include  "./Header.html" %}
+
+<div class="modal-dialog">
+    {% if form.error %}
+        <p style="color: red;"> {{ form.message }}</p>
+    {% else %}
+        <p style="color: green;"> {{ form.message }}</p>
+    {% endif %}
+
+    <div class="modal-content" style="background-color: rgb(6 78 100); ">
+        <div class="modal-header">
+            <h4 class="modal-title " style="color: white; padding-left: 94px;">My Profile Information</h4>
+
+        </div>
+        <form method="POST">
+            <input type="hidden" name="id" value="{{ form.id }}">
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-lg-3 form-control-label" style="color: white;">First Name </label>
+                    <div class="col-lg-9">
+                        <p name="firstName" value="{{ form.firstName }}" class="form-control">{{ form.firstName }}</p>
+                        <span style="color: red;"> {{ form.inputError.firstName }} </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 form-control-label" style="color: white;">Last Name </label>
+                    <div class="col-lg-9">
+                        <p class="form-control" name="lastName" value="{{ form.lastName }}">{{ form.lastName }}</p>
+                        <span style="color: red;"> {{ form.inputError.lastName }} </span></div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 form-control-label" style="color: white;">Login </label>
+                    <div class="col-lg-9">
+                        <p class="form-control" name="login" value="{{ form.login }}">{{ form.login_id }}</p>
+                        <span style="color: red;"> {{ form.inputError.login_id }} </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 form-control-label" style="color: white;">Password </label>
+                    <div class="col-lg-9">
+                        <p class="form-control" name="password" value="{{ form.password }}">{{ form.password }}</p>
+                        <span style="color: red;"> {{ form.inputError.password }} </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 form-control-label" style="color: white;">Date Of Birth </label>
+                    <div class="col-lg-9">
+                        <p style="cursor: pointer" name="dob" value="{{ form.dob }}" class="form-control"
+                           placeholder="DD-MM-YYYY">{{ form.dob }}</p>
+                        <span style="color: red;"> {{ form.inputError.dob }} </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 form-control-label" style="color: white;">Mobile</label>
+                    <div class="col-lg-9">
+                        <p class="form-control" name="mobileNumber"
+                           value="{{ form.mobilenumber }}">{{ form.mobilenumber }}</p>
+                        <span style="color: red;"> {{ form.inputError.mobilenumber }} </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 form-control-label" style="color: white;">Gender </label>
+                    <div class="col-lg-9">
+                        <p class="form-control" name="gender" value="{{ form.gender }}">{{ form.gender }}</p>
+
+                    </div>
+                </div>
+                <div style="text-align: center;" class="form-group row">
+                    <div class="col-lg-4"></div>
+                    <a class="btn btn-success btn-group-lg" href="/ORS/User/edit/{{ form.id }}" if
+                       (form.id==1?readable:false)>Edit Profile
+                        <i class="fas fa-edit">
+                        </i>
+                    </a>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+</body>
+{% include  "./Footer.html" %}

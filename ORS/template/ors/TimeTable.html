@@ -1,0 +1,156 @@
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+{% load static %}
+<script src="{% static "jquery-1.12.4.js" %}"></script>
+<script src="{% static "jquery-ui.js" %}"></script>
+<link rel="stylesheet" href="{% static "jquery-ui.css" %}">
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd/mm/yy',
+
+        });
+    });
+
+    $(function () {
+        $("#datesun").datepicker({
+            beforeShowDay:
+                function (dt) {
+                    return [dt.getDay() == 0 ? false : true]     ///// to disable sunday
+                },
+            changeMonth: true,
+            changeYear: true,
+            stepMonths: 12,
+            yearRange: '+0:+5',
+            yearRange: "+10:"
+
+
+        });
+    });
+</script>
+
+
+<body style="background-color: whitesmoke;background-image:url('../../static/images/fill-form.jpg'); background-repeat:no-repeat;width: 100%; background-size: cover"></body>
+
+
+
+{% include  "./Header.html" %}
+
+
+<div class="modal-dialog">
+
+    <div class="modal-content" style=" width: 729px;margin-left: -118PX; background-color:rgb(193,225,227);">
+        <div class="modal-header text-center">
+            <h4 class="modal-title " style="padding-left: 207px; font-family: bold; font-size: xx-large;">Timetable
+                Information</h4>
+        </div>
+        <form class="form" method="POST">
+            {% if form.error %}
+                <p style="color: red; text-align: center; font-size: x-large;"> {{ form.message }}</p>
+            {% else %}
+                <p style="color:rgb(45, 187, 16) ;text-align: center;font-size: x-large;"> {{ form.message }}</p>
+            {% endif %}
+
+            <input type="hidden" name="id" value="{{ form.id }}">
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-lg-2 form-control-label">Course Name<span style="color: red;">*</span> </label>
+                    <div class="col-lg-4">
+
+                        <select class="form-control" name="course_ID">
+                            <option value="">--Select--</option>
+                            {% for form in form.course_List %}
+                                <option value="{{ form.id }}">{{ form.courseName }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <span style="color: red;"> {{ form.inputError.course_ID }} </span>
+
+                    </div>
+
+
+                    <label class="col-lg-2 form-control-label">Subject Name<span style="color: red;">*</span> </label>
+                    <div class="col-lg-4">
+
+                        <select class="form-control" name="subject_ID">
+                            <option value="">--Select--</option>
+                            {% for form in form.subject_List %}
+                                <option value="{{ form.id }}">{{ form.subjectName }}</option>
+                            {% endfor %}
+                        </select>
+                    <span style="color: red;"> {{form.inputError.subject_ID}} </span>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-lg-2 form-control-label">Exam Date<span style="color: red;">*</span> </label>
+                    <div class="col-lg-4">
+                        <!-- <input class="form-control" name="examDate" value="{{form.examDate}}" placeholder="Enter your Exam Date"type="Date"> -->
+                        <input style="cursor: pointer" type="date" name="examDate" value="{{ form.examDate }}"
+                               class="form-control"
+                               placeholder="MM-DD-YYYY"/>
+                        <span style="color: red;"> {{ form.inputError.examDate }} </span>
+
+                    </div>
+
+                    <label class="col-lg-2 form-control-label">Exam Time <span style="color: red;">*</span> </label>
+                    <div class="col-lg-4">
+
+                        <select class="form-control" name="examTime">
+                            <option value="">--Select--</option>
+                            <option>9:00AM to 12:00PM</option>
+                            <option>1:00PM to 4:00PM</option>
+                            <option>4:00PM to 7:00PM</option>
+                        </select>
+                        <span style="color: red;"> {{ form.inputError.examTime }} </span>
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-lg-2 form-control-label">Semester<span style="color: red;">*</span> </label>
+                    <div class="col-lg-4">
+
+                        <select r class="form-control" name="semester">
+                            <option value="">--Select--</option>
+                            <option>1st</option>
+                            <option>2nd</option>
+                            <option>3rd</option>
+                            <option>4th</option>
+                            <option>5th</option>
+                            <option>6th</option>
+                            <option>7th</option>
+                            <option>8th</option>
+                        </select>
+                        <span style="color: red;"> {{ form.inputError.semester }} </span>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success" style="width: 100px;">Save
+
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="" class="btn btn-primary form-control">Reset
+
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include  "./Footer.html" %}

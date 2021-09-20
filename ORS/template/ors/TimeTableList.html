@@ -1,0 +1,174 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        txt = ""
+        $('#select_all').on('click', function () {
+            if (this.checked) {
+                $('.checkbox').each(function () {
+                    this.checked = true;
+                    txt = $(this).val();
+                });
+            } else {
+                $('.checkbox').each(function () {
+                    this.checked = false;
+                    txt = $(this).val();
+                });
+            }
+        });
+        $('.checkbox').on('click', function () {
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#select_all').prop('checked', true);
+                txt = $(this).val();
+
+            } else {
+                $('#select_all').prop('checked', false);
+                txt = $(this).val();
+            }
+        });
+        $('#ids').val(txt)
+    });
+</script>
+
+
+{% include "./Header.html" %}
+<br>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {
+                $("#timeout").fadeOut(1000);
+            }, 2000)
+
+        })
+    </script>
+</head>
+
+<body style="background-color: whitesmoke;background-image:url('../../static/images/list_background.png'); background-repeat:no-repeat;width: 100%; background-size: cover">
+
+
+<div class="container-fluid">
+    <div>
+
+    </div>
+    <form method="POST">
+        <div class="form-group row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-3"><H1>Timetable List</H1></div>
+            <div class="col-lg-2">
+                <input class="form-control" name="semester" value="{{ form.semester }}"
+                       placeholder="Enter your Semester">
+            </div>
+
+            <div class="col-lg-1">
+                <button class="btn btn-primary">Search
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+
+</div>
+
+<div class="col-md-12">
+    {% if form.error %}
+
+        <p id ="timeout"  style="color: red;font-size: x-large;"> {{ form.message }}</p>
+    {% else %}
+        <p id ="timeout"  style="color:rgb(35, 151, 41);font-size: x-large;"> {{ form.message }}</p>
+    {% endif %}
+    <table border="1" width="50%">
+        <div class="row">
+            <table class="table table-sm table-bordered table-hover table-responsive-sm">
+                <thead class="thead-dark">
+                <th><input type="checkbox" id="select_all"
+                           onchange="selectAll(this)">Select All
+                </th>
+                <th scope="row">S.No</th>
+                <th scope="row">CourseName
+                </th>
+                <th scope="row">SubjectName
+                </th>
+
+                <th scope="row">Semester
+                </th>
+
+                <th scope="row">ExamDate
+                </th>
+                <th scope="row">ExamTime
+                </th>
+                <th scope="row">EDIT</th>
+
+                </thead>
+                <tbody>
+                {% for e in pageList %}
+                    <tr>
+                        <td><input type="checkbox" name="ids" class="checkbox"
+                                   onchange="selectone(this)" value="{{ e.id }}"></td>
+                        <td>{{ e.id }}</td>
+                        <td>{{ e.courseName }}</td>
+                        <td>{{ e.subjectName }}</td>
+                        <td>{{ e.semester }}</td>
+                        <td>{{ e.examDate }}</td>
+                        <td>{{ e.examTime }}</td>
+                        <td><a href="/ORS/TimeTable/edit/{{ e.id }}"> Edit
+
+                            <font data-target="#update" data-toggle="modal">
+                                <i>
+                                </i>
+                            </font></a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+             <div class="row">
+                    {% if form.pageNo == 1 %}
+        <div class="col-lg-1">
+        <input type="submit" disabled class="btn btn-primary float-left" name="operation" name="operation" value="previous">
+    </div>
+    {% else %}
+
+        <div class="col-lg-1">
+            <input type="submit"  class="btn btn-primary" name="operation" name="operation" value="previous">
+        </div>
+    {% endif %}
+            <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <input type="submit" class="btn btn-danger" name="operation" name="operation" value="Delete">
+                </div>
+                <div class="col-md-2">
+
+                    <a href="/ORS/TimeTable">
+                        <font class="btn btn-success " data-target="#update" data-toggle="modal">ADD <i
+                                class="fas fa-plus-circle"></i></font>
+                    </a>
+                </div>
+            <div class="col-lg-3"></div>
+            {% if pageList|length < 5 %}
+
+    <div class="col-lg-1">
+            <input type="submit"  disabled  class="btn btn-primary" name="operation"  name="operation" value="next">
+        </div>
+    {% else %}
+    <div class="col-lg-1">
+            <input type="submit"  class="btn btn-primary" name="operation" name="operation" value="next">
+        </div>
+    {% endif %}
+
+
+
+        </div>
+</div>
+
+</body>
+
+</form>
+</html>
+
+{% include "./Footer.html" %}

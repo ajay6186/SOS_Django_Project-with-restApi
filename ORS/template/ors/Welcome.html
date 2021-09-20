@@ -1,0 +1,29 @@
+
+
+
+{% load static %}
+
+{% include  "./Header.html"%}
+<body style="background-image: url('../../static/images/welcome.jpg');
+background-size: cover;
+height: 100vh;
+padding:0;
+margin:0;">
+<div class="container">
+    <div class="d-flex" style="margin-top: 10%">
+        <div class="mx-auto">
+                <h1 align="center">
+                        <img src="{% static '/images/img3.png'%}" class="mx-auto d-block" style="width: 45%">
+                        <br></h1> 
+                        <h6 align="center" style="font-size: xx-large;font-style: italic; color: rgb(0, 4, 255);">
+                            Welcome to online result system
+
+                         </h6>
+                        
+
+            <h6 align="center"><span style="color: rgb(238, 20, 20);font-size: x-large;font-style: italic;">{{form.message}}</span></h6>
+        </div>
+    </div>    
+</div>
+</body>
+{% include  "./Footer.html"%}
